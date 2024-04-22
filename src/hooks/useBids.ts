@@ -3,9 +3,9 @@ import supabase from "../supabase/supabase";
 
 
 const getBids = async (search: string)=>{
-    let { data, error } = await supabase.from('bids').select('*')
-        
-    // .eq('id', 1)
+    let { data, error } = await supabase
+    .from('bids')
+    .select('*')
 
   if(error) {
     throw new Error(error.message)
@@ -15,7 +15,6 @@ const getBids = async (search: string)=>{
     throw new Error("bid not found")
   }
 
-  console.log(data)
   return data
 }
 

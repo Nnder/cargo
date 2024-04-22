@@ -1,8 +1,9 @@
-import styles from "./page.module.css";
+import { Loader } from "@gravity-ui/uikit";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main style={{background:'gray'}}>
+      <Loader size="l"/>
       main
     </main>
   );
