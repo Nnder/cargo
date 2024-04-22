@@ -1,7 +1,7 @@
 'use client'
 import useBids from "@/src/hooks/useBids"
 
-export default function page() {
+export default function Admin() {
     const {data, isLoading} = useBids()
   return (
     <div>
