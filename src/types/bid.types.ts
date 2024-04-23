@@ -1,6 +1,6 @@
-type BidStatus = "новая" | "в работе" | "завершено";
+export type BidStatus = "новая" | "в работе" | "завершено";
 
-interface Bid {
+export interface Bid {
     id: number
     created_at: number
     firm_name: string

@@ -1,10 +1,12 @@
-import { Loader } from "@gravity-ui/uikit";
+'use client'
+import Navbar from "@/src/components/Navbar";
+import Table from "@/src/components/Table";
 
 export default function Home() {
   return (
-    <main style={{background:'gray'}}>
-      <Loader size="l"/>
-      main
+    <main>
+        <Navbar/>
+        <Table/>
     </main>
   );
 }

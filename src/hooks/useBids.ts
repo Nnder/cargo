@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import supabase from "../supabase/supabase";
+import { Bid } from "../types/bid.types";
 
 
-const getBids = async (search: string)=>{
+const getBids = async (search: string): Promise<Bid[]>=>{
     let { data, error } = await supabase
     .from('bids')
     .select('*')
@@ -21,5 +22,5 @@ const getBids = async (search: string)=>{
 
 
 export default function useBids(search = "") {
-    return useQuery({ queryKey: ['bids', search], queryFn: ()=>getBids(search) })
+    return useQuery({ queryKey: ['bids', search], queryFn: (): Promise<Bid[]>=>getBids(search) })
   }
