@@ -10,8 +10,8 @@ export default function UpdateButton({bid, ...props}: PropsWithChildren<{bid: Bi
 
   return (
     <Button onClick={()=>{
-        openModal()
         setSelectedBid(bid)
+        openModal()
         }}>
         <Gear/>
     </Button>

@@ -1,16 +1,15 @@
 .datepicker {
-    width: 100%;
+    width: 400px;
     border: 1px solid gray;
     border-radius: 5px;
     font-size: 20px;
+    height: 30px;
 }
 
 .select {
-    width: 100%;
-    border-radius: 10px;
-    z-index: 999;
-    background-color: #858585;
-    font-size: 15px;
+    width: 405px;
+    margin: 0;
+    padding: 0;
 }
 
 .form {
@@ -23,13 +22,10 @@
     background-color: #251b25;
 }
 
-.number {
-    color: #fff;
-}
-
 .input {
-    /* background: #858585;
-     */
     background-color: #fff;
     border-radius: 5px;
+    width: 400px;
+    height: 30px;
+    font-size: 15px;
 }
