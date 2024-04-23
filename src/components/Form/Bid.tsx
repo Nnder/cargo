@@ -7,9 +7,9 @@ import Select from 'react-select';
 import styles from './Bid.module.css'
 import { Controller, FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import useUpdateBid, { updateBid } from '@/src/hooks/useUpdateBid';
-import useCreateBid, { createBid } from '@/src/hooks/useCreateBid';
 import { useQueryClient } from '@tanstack/react-query';
+import { createBid } from '@/src/hooks/useCreateBid';
+import { updateBid } from '@/src/hooks/useUpdateBid';
 
 const defaultValues = {
   id: "",
