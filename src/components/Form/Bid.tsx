@@ -25,6 +25,13 @@ export default function BidForm() {
   const {modal, closeModal, selectedBid} = useBidStore()
   const methods = useForm({defaultValues: defaultValues});
   const { control, handleSubmit, reset } = methods
+  
+  const HandleData = (data: FieldValues) => {
+    if(data.id)
+      useUpdateBid(data)
+    else 
+      useCreateBid(data)
+  }
 
   const options = [
     { value: 'новая', label: 'новая' },
@@ -35,12 +42,7 @@ export default function BidForm() {
   const getCurrentOption = ()=>
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
-  const HandleData = (data: FieldValues) => {
-    if(data.id)
-      useUpdateBid(data)
-    else 
-      useCreateBid(data)
-  }
+  
  
   useEffect(()=>{
     if(selectedBid){
