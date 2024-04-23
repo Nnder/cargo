@@ -1,11 +1,12 @@
 import supabase from "../supabase/supabase"
 import { Bid } from "../types/bid.types"
 
-export const getBids = async (search: string): Promise<Bid[]>=>{
+export const getBids = async (search: string, status: string): Promise<Bid[]>=>{
     let { data, error } = await supabase
     .from('bids')
     .select('*')
     .or(`ati.ilike.%${search}%,status.ilike.%${search}%,fio_carrier.ilike.%${search}%,comments.ilike.%${search}%,phone_carrier.ilike.%${search}%,firm_name.ilike.%${search}%`)
+    .or(`status.like.${status}`)
 
   if(error) {
     throw new Error(error.message)

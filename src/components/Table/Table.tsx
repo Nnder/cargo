@@ -5,6 +5,7 @@ import useBids from "../../hooks/useBids";
 import { Bid } from "../../types/bid.types";
 import { Loader } from "@gravity-ui/uikit";
 import Search from "../Search/Search";
+import Filter from "../Filter/Filter";
 
 export default function Table() {
     const {data, isLoading} = useBids()
@@ -22,8 +23,13 @@ export default function Table() {
 
     return (
       <div style={{marginTop: '16px', display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
+        
         <Search/>
-        <div style={{marginBottom: '8px'}}>Количество заявок: {isLoading ? "..." : data && data.length}</div>
+        <div style={{display: 'flex', width: '600px', justifyContent: 'space-around', alignItems: 'center', margin: '8px'}}>
+          <div style={{marginBottom: '8px', fontSize: '20px'}}>Количество заявок: {isLoading ? "..." : data && data.length}</div>
+          <Filter/>
+        </div>
+        
           <div style={{width:'100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
           {isLoading ? <Loader/> : 
             data ? 

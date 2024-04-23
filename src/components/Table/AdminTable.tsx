@@ -9,11 +9,10 @@ import UpdateButton from "../Button/UpdateButton";
 import BidForm from "../Form/Bid";
 import { useBidStore } from "@/src/zustand/bid";
 import Search from "../Search/Search";
-import { useSearchStore } from "@/src/zustand/search";
+import Filter from "../Filter/Filter";
 
 export default function AdminTable() {
-  const {search} = useSearchStore()
-  const {data, isLoading} = useBids(search)
+  const {data, isLoading} = useBids()
   const {openModal} = useBidStore()
 
   const columns: any = [
@@ -35,7 +34,11 @@ export default function AdminTable() {
       
       <div style={{marginTop: '16px', display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '100%'}}>
       <Search/>
-      <div style={{marginBottom: '8px'}}>Количество заявок: {isLoading ? "..." : data && data.length}</div>
+      <div style={{display: 'flex', width: '600px', justifyContent: 'space-around', alignItems: 'center', margin: '8px'}}>
+        <div style={{marginBottom: '8px', fontSize: '20px'}}>Количество заявок: {isLoading ? "..." : data && data.length}</div>
+        <Filter/>
+      </div>
+      
         <Button view="action" size="l" style={{marginBottom: '8px', width: '100%'}} onClick={openModal}>Создать заявку</Button>
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
               {isLoading ? <Loader/> : 
