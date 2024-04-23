@@ -101,7 +101,7 @@ export default function BidForm() {
 
               <Controller name='ati' control={control}
                 render={ ({field: {value, onChange}}) => (
-                  <input className={styles.input} placeholder='ATI' value={value} onChange={onChange} required/>
+                  <input className={styles.input} placeholder='ATI' value={value} onChange={onChange} type='number' required/>
               )}/>
 
               <Controller name='comments' control={control}
