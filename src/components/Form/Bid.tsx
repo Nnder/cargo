@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { createBid, updateBid } from '@/src/api/bid';
 import { useSearchStore } from '@/src/zustand/search';
+import { Bid } from '@/src/types/bid.types';
 
 const defaultValues = {
   id: "",
@@ -38,18 +39,28 @@ export default function BidForm() {
   const getCurrentOption = ()=>
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
-  const handleCreate = (data: FieldValues) => {
-    createBid(data)
+  const handleCreate = async (data: FieldValues) => {
+    const newBid: Bid[] = await createBid(data)
+    queryClient.setQueryData(
+      ['bids', search ],
+      (oldData:any) =>[...oldData, ...newBid] )
+
     setTimeout(()=> {
-      queryClient.invalidateQueries({ queryKey: ['bids', ""] })
+      queryClient.invalidateQueries({ queryKey: ['bids', search] })
     }, 1500)
     closeModal()
   }
 
-  const handleUpdate = (data: FieldValues) => {
-    updateBid(data)
+  const handleUpdate = async (data: FieldValues) => {
+    const updatedBid: Bid[] = await updateBid(data)
+    queryClient.setQueryData(
+      ['bids', search ],
+      (oldData:Bid[]) =>{
+        const newData = [...oldData].filter((bid)=> bid.id !== updatedBid[0].id)
+        return [...newData, ...updatedBid]
+      })
     setTimeout(()=> {
-      queryClient.invalidateQueries({ queryKey: ['bids', ""] })
+      queryClient.invalidateQueries({ queryKey: ['bids', search] })
     }, 1500)
     closeModal()
   }

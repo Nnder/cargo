@@ -61,12 +61,12 @@ export async function createBid(bid: any) {
     .select()
 
     if(error) {
-        throw new Error(error.message)
-      }
-    
-      if(!data) {
-        throw new Error("bid not found")
-      }
-    
-      return data
+      throw new Error(error.message)
+    }
+  
+    if(!data) {
+      throw new Error("bid not found")
+    }
+  
+    return data
   }
