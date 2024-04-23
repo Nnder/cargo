@@ -22,5 +22,5 @@ const getBids = async (search: string): Promise<Bid[]>=>{
 
 
 export default function useBids(search = "") {
-    return useQuery({ queryKey: ['bids', search], queryFn: (): Promise<Bid[]>=>getBids(search) })
-  }
+  return useQuery({ queryKey: ['bids', search], queryFn: (): Promise<Bid[]>=>getBids(search) })
+}

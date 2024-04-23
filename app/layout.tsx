@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import '@gravity-ui/uikit/styles/fonts.css';
 import '@gravity-ui/uikit/styles/styles.css';
 import MainProvider from "@/src/providers/MainProvider";
+import Navbar from "@/src/components/Navbar";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Cargo",
@@ -15,8 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="g-root g-root_theme_light">
+      <body className={inter.className}>
         <MainProvider>
+          <Navbar/>
           {children}
         </MainProvider>
       </body>
