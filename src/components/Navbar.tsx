@@ -1,4 +1,4 @@
-import { Button, Flex } from "@gravity-ui/uikit";
+import { Button } from "@gravity-ui/uikit";
 import Link from "next/link";
 
 export default function Navbar() {
