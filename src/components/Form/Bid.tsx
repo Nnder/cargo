@@ -7,8 +7,8 @@ import Select from 'react-select';
 import styles from './Bid.module.css'
 import { Controller, FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import useUpdateBid from '@/src/hooks/useUpdateBid';
-import useCreateBid from '@/src/hooks/useCreateBid';
+import useUpdateBid, { updateBid } from '@/src/hooks/useUpdateBid';
+import useCreateBid, { createBid } from '@/src/hooks/useCreateBid';
 import { useQueryClient } from '@tanstack/react-query';
 
 const defaultValues = {
@@ -38,15 +38,15 @@ export default function BidForm() {
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
   const handleCreate = (data: FieldValues) => {
-      useCreateBid(data)
-      setTimeout(()=> {
-        queryClient.invalidateQueries({ queryKey: ['bids', ""] })
-      }, 1500)
-      closeModal()
+    createBid(data)
+    setTimeout(()=> {
+      queryClient.invalidateQueries({ queryKey: ['bids', ""] })
+    }, 1500)
+    closeModal()
   }
 
   const handleUpdate = (data: FieldValues) => {
-    useUpdateBid(data)
+    updateBid(data)
     setTimeout(()=> {
       queryClient.invalidateQueries({ queryKey: ['bids', ""] })
     }, 1500)
