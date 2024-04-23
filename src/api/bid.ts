@@ -5,7 +5,7 @@ export const getBids = async (search: string): Promise<Bid[]>=>{
     let { data, error } = await supabase
     .from('bids')
     .select('*')
-    .or(`status.ilike.%${search}%,fio_carrier.ilike.%${search}%,comments.ilike.%${search}%,phone_carrier.ilike.%${search}%,firm_name.ilike.%${search}%`)
+    .or(`ati.ilike.%${search}%,status.ilike.%${search}%,fio_carrier.ilike.%${search}%,comments.ilike.%${search}%,phone_carrier.ilike.%${search}%,firm_name.ilike.%${search}%`)
 
   if(error) {
     throw new Error(error.message)
