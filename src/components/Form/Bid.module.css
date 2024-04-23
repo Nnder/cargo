@@ -1,0 +1,35 @@
+.datepicker {
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.select {
+    width: 100%;
+    border-radius: 10px;
+    z-index: 999;
+    background-color: #858585;
+    font-size: 15px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    max-width: 800px;
+    background-color: #251b25;
+}
+
+.number {
+    color: #fff;
+}
+
+.input {
+    /* background: #858585;
+     */
+    background-color: #fff;
+    border-radius: 5px;
+}

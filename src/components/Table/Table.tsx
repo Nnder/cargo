@@ -25,8 +25,9 @@ export default function Table() {
           <div style={{width:'100%'}}>
           {isLoading ? <Loader/> : 
             data ? 
-            // <DataTable theme="yandex-cloud" data={data} columns={columns} startIndex={startIndex}/> 
-            <DataTable data={data} columns={columns}/>
+            <><div>Количество заявок {data.length}</div>
+            {/* <DataTable theme="yandex-cloud" data={data} columns={columns} startIndex={startIndex}/>  */}
+            <DataTable data={data} columns={columns}/></>
             : "Пусто"}
           </div>
       </div>

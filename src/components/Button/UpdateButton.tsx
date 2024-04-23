@@ -1,3 +1,4 @@
+"use client"
 import { Bid } from "@/src/types/bid.types";
 import { useBidStore } from "@/src/zustand/bid";
 import { Gear } from "@gravity-ui/icons";

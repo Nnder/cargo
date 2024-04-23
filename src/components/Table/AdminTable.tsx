@@ -31,12 +31,14 @@ export default function AdminTable() {
       <BidForm/>
       
       <div style={{marginTop: '16px', display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '100%'}}>
-        <Button view="action" size="l" style={{marginBottom: '8px', width: '100%'}} onClick={()=>{openModal()}}>Создать заявку</Button>
+      <div style={{marginBottom: '8px'}}>Количество заявок: {isLoading ? "..." : data && data.length}</div>
+        <Button view="action" size="l" style={{marginBottom: '8px', width: '100%'}} onClick={openModal}>Создать заявку</Button>
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
               {isLoading ? <Loader/> : 
               data ? 
-              // <DataTable theme="yandex-cloud" data={data} columns={columns} startIndex={startIndex}/> 
-              <DataTable data={data} columns={columns}/>
+              <>
+              {/* <DataTable theme="yandex-cloud" data={data} columns={columns} startIndex={startIndex}/>  */}
+              <DataTable data={data} columns={columns}/></>
               : "Пусто"}
           </div>
       </div>

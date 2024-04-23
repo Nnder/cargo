@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={'g-root g-root_theme_light'}>
         <MainProvider>
           <Navbar/>
           {children}
