@@ -8,8 +8,7 @@ import styles from './Bid.module.css'
 import { Controller, FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { createBid } from '@/src/hooks/useCreateBid';
-import { updateBid } from '@/src/hooks/useUpdateBid';
+import { createBid, updateBid } from '@/src/api/bid';
 
 const defaultValues = {
   id: "",
