@@ -22,7 +22,8 @@ export default function AdminTable() {
         { name: 'Комментарии', selector: (row:Bid) =>row.comments},
         { name: 'Статус', selector: (row:Bid) =>row.status},
         { name: 'ATI', selector: (row:Bid) =><a href={`https://ati.su/firms/${row.ati}/info`}>{row.ati}</a>},
-        { name: 'Кнопки', selector: (row:Bid) => <div><UpdateButton bid={row}/> <DeleteButton bid={row}/></div>}
+        { name: 'Кнопки', selector: (row:Bid) => <div><UpdateButton bid={row}/> <DeleteButton bid={row}/></div>},
+        { name: 'Кнопки', selector: (row:Bid) => row.id,}
     ];
     const startIndex = 0;
     

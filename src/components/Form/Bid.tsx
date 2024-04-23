@@ -7,6 +7,8 @@ import Select from 'react-select';
 import styles from './Bid.module.css'
 import { Controller, FieldValues, FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+import { Bid } from '@/src/types/bid.types';
+import supabase from '@/src/supabase/supabase';
 
 const defaultValues = {
   id: "",
@@ -35,11 +37,58 @@ export default function BidForm() {
   const getCurrentOption = ()=>
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
+
+  async function updateBid(id: number, bid: any){
+    const { data, error } = await supabase
+    .from('bids')
+    .update({
+      fio_carrier: bid.fio_carrier,
+      firm_name: bid.firm_name,
+      phone_carrier: bid.phone_carrier,
+      comments: bid.comments,
+      created_at: bid.created_at,
+      ati: bid.ati,
+      status: bid.status.value,
+    },)
+    .eq('id', id)
+    .select()
+  }
+
+  async function createBid(bid: any) {
+
+    // id: "",
+    // created_at: new Date(),
+    // firm_name: "",
+    // fio_carrier: "",
+    // phone_carrier: "",
+    // comments: "",
+    // status: { value: 'новая', label: 'новая' },
+    // ati: "",
+
+    const { data, error } = await supabase
+    .from('bids')
+    .insert([
+      {
+        fio_carrier: bid.fio_carrier,
+        firm_name: bid.firm_name,
+        phone_carrier: bid.phone_carrier,
+        comments: bid.comments,
+        created_at: bid.created_at,
+        ati: bid.ati,
+        status: bid.status.value,
+      },
+    ])
+    .select()
+        
+  }
+
   const handleData = (data: FieldValues) => {
     if(data.id){
       console.log('update')
+      updateBid(data.id, data)
     } else {
       console.log('create')
+      createBid(data)
     }
   }
 
