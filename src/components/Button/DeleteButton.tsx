@@ -22,14 +22,15 @@ export default function DeleteButton({bid, ...props}: PropsWithoutRef<{bid: Bid}
       if(!data) {
         throw new Error("bid not found")
       }
-    
       return data
     }
 
     const mutation = useMutation({
         mutationFn: ()=> deleteBid(bid.id),
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['bids'] })
+          setTimeout(()=> {
+            queryClient.invalidateQueries({ queryKey: ['bids', ""] })
+          }, 1500)
         },
       })
     

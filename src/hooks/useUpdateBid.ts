@@ -1,5 +1,4 @@
 import supabase from "../supabase/supabase";
-import useBids from "./useBids";
 
 async function updateBid(id: number, bid: any){
     const { data, error } = await supabase
@@ -17,7 +16,6 @@ async function updateBid(id: number, bid: any){
     .select()
 }
 
-export default function useUpdateBid(data: any, search = "") {
+export default function useUpdateBid(data: any) {
     updateBid(data.id, data)
-    return useBids(search)
 }

@@ -1,5 +1,4 @@
 import supabase from "../supabase/supabase"
-import useBids from "./useBids"
 
 async function createBid(bid: any) {
     const { data, error } = await supabase
@@ -18,7 +17,6 @@ async function createBid(bid: any) {
     .select()
   }
 
-export default function useCreateBid(data: any, search = "") {
+export default function useCreateBid(data: any) {
     createBid(data)
-    return useBids(search)
 }

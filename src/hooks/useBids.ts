@@ -3,7 +3,7 @@ import supabase from "../supabase/supabase";
 import { Bid } from "../types/bid.types";
 
 
-const getBids = async (search: string): Promise<Bid[]>=>{
+export const getBids = async (search: string): Promise<Bid[]>=>{
     let { data, error } = await supabase
     .from('bids')
     .select('*')

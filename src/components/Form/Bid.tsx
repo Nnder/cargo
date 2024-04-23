@@ -9,6 +9,7 @@ import { Controller, FieldValues, FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react';
 import useUpdateBid from '@/src/hooks/useUpdateBid';
 import useCreateBid from '@/src/hooks/useCreateBid';
+import { useQueryClient } from '@tanstack/react-query';
 
 const defaultValues = {
   id: "",
@@ -23,15 +24,9 @@ const defaultValues = {
 
 export default function BidForm() {
   const {modal, closeModal, selectedBid} = useBidStore()
+  const queryClient = useQueryClient()
   const methods = useForm({defaultValues: defaultValues});
   const { control, handleSubmit, reset } = methods
-  
-  const HandleData = (data: FieldValues) => {
-    if(data.id)
-      useUpdateBid(data)
-    else 
-      useCreateBid(data)
-  }
 
   const options = [
     { value: 'новая', label: 'новая' },
@@ -42,8 +37,19 @@ export default function BidForm() {
   const getCurrentOption = ()=>
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
+  const handleUpdate = (data: FieldValues) => {
+    if(data.id)
+      useUpdateBid(data)
+    else 
+      useCreateBid(data)
+
+    setTimeout(()=> {
+      queryClient.invalidateQueries({ queryKey: ['bids', ""] })
+    }, 1500)
+    
+    closeModal()
+  }
   
- 
   useEffect(()=>{
     if(selectedBid){
       reset(
@@ -108,7 +114,7 @@ export default function BidForm() {
               
             </div>
             <div>
-              <Button onClick={handleSubmit(HandleData)} view="action" type='submit'>{selectedBid ? "Сохранить" : "Создать"}</Button>
+              <Button onClick={handleSubmit(handleUpdate)} view="action" type='submit'>{selectedBid ? "Сохранить" : "Создать"}</Button>
             </div>
         </FormProvider>
         </div>
