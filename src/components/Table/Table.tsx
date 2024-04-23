@@ -22,7 +22,7 @@ export default function Table() {
     
     return (
       <div style={{marginTop: '16px', display: 'flex', justifyContent: 'center'}}>
-          <div>
+          <div style={{width:'100%'}}>
           {isLoading ? <Loader/> : 
             data ? 
             // <DataTable theme="yandex-cloud" data={data} columns={columns} startIndex={startIndex}/> 
