@@ -9,6 +9,7 @@ import { Controller, FieldValues, FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { createBid, updateBid } from '@/src/api/bid';
+import { useSearchStore } from '@/src/zustand/search';
 
 const defaultValues = {
   id: "",
@@ -23,6 +24,7 @@ const defaultValues = {
 
 export default function BidForm() {
   const {modal, closeModal, selectedBid} = useBidStore()
+  const {search} = useSearchStore()
   const queryClient = useQueryClient()
   const methods = useForm({defaultValues: defaultValues});
   const { control, handleSubmit, reset } = methods

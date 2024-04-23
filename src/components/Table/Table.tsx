@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 import useBids from "../../hooks/useBids";
 import { Bid } from "../../types/bid.types";
 import { Loader } from "@gravity-ui/uikit";
+import Search from "../Search/Search";
 
 export default function Table() {
     const {data, isLoading} = useBids()
@@ -19,9 +20,9 @@ export default function Table() {
   ];
     const startIndex = 0;
 
-    
     return (
       <div style={{marginTop: '16px', display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
+        <Search/>
         <div style={{marginBottom: '8px'}}>Количество заявок: {isLoading ? "..." : data && data.length}</div>
           <div style={{width:'100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
           {isLoading ? <Loader/> : 

@@ -5,6 +5,8 @@ export const getBids = async (search: string): Promise<Bid[]>=>{
     let { data, error } = await supabase
     .from('bids')
     .select('*')
+    .ilike('firm_name', `%${search}%`)
+    
 
   if(error) {
     throw new Error(error.message)
