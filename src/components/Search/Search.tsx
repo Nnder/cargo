@@ -10,7 +10,7 @@ export default function Search() {
   }, [search])
   return (
     <div style={{display: 'flex', justifyContent:'center'}}>
-        <input type="text" placeholder='Поиск по фирме клиента' style={{width: '90%', height: '30px', fontSize: '20px', borderRadius: '10px', padding: '5px', margin: '8px'}} 
+        <input type="text" placeholder='Поиск' style={{width: '90%', height: '30px', fontSize: '20px', borderRadius: '10px', padding: '5px', margin: '8px'}} 
         onChange={(e)=>setSearch(e.target.value)} value={search}/>
     </div>
   )
