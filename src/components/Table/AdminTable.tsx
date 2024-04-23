@@ -23,7 +23,6 @@ export default function AdminTable() {
         { name: 'Статус', selector: (row:Bid) =>row.status},
         { name: 'ATI', selector: (row:Bid) =><a href={`https://ati.su/firms/${row.ati}/info`}>{row.ati}</a>},
         { name: 'Кнопки', selector: (row:Bid) => <div><UpdateButton bid={row}/> <DeleteButton bid={row}/></div>},
-        { name: 'Кнопки', selector: (row:Bid) => row.id,}
     ];
     const startIndex = 0;
     
@@ -39,7 +38,7 @@ export default function AdminTable() {
               data ? 
               <>
               {/* <DataTable theme="yandex-cloud" data={data} columns={columns} startIndex={startIndex}/>  */}
-              <DataTable data={data} columns={columns}/></>
+              <DataTable data={data} columns={columns} style={{maxWidth: '100vw'}}/></>
               : "Пусто"}
           </div>
       </div>
