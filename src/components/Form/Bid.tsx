@@ -21,14 +21,6 @@ const defaultValues = {
   ati: "",
 }
 
-const handleData = (data: FieldValues) => {
-  if(data.id)
-    useUpdateBid(data)
-  else 
-    useCreateBid(data)
-}
-
-
 export default function BidForm() {
   const {modal, closeModal, selectedBid} = useBidStore()
   const methods = useForm({defaultValues: defaultValues});
@@ -43,6 +35,12 @@ export default function BidForm() {
   const getCurrentOption = ()=>
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
+  const HandleData = (data: FieldValues) => {
+    if(data.id)
+      useUpdateBid(data)
+    else 
+      useCreateBid(data)
+  }
  
   useEffect(()=>{
     if(selectedBid){
@@ -108,7 +106,7 @@ export default function BidForm() {
               
             </div>
             <div>
-              <Button onClick={handleSubmit(handleData)} view="action" type='submit'>{selectedBid ? "Сохранить" : "Создать"}</Button>
+              <Button onClick={handleSubmit(HandleData)} view="action" type='submit'>{selectedBid ? "Сохранить" : "Создать"}</Button>
             </div>
         </FormProvider>
         </div>
