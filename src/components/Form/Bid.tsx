@@ -37,16 +37,19 @@ export default function BidForm() {
   const getCurrentOption = ()=>
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
-  const handleUpdate = (data: FieldValues) => {
-    if(data.id)
-      useUpdateBid(data)
-    else 
+  const handleCreate = (data: FieldValues) => {
       useCreateBid(data)
+      setTimeout(()=> {
+        queryClient.invalidateQueries({ queryKey: ['bids', ""] })
+      }, 1500)
+      closeModal()
+  }
 
+  const handleUpdate = (data: FieldValues) => {
+    useUpdateBid(data)
     setTimeout(()=> {
       queryClient.invalidateQueries({ queryKey: ['bids', ""] })
     }, 1500)
-    
     closeModal()
   }
   
@@ -114,7 +117,7 @@ export default function BidForm() {
               
             </div>
             <div>
-              <Button onClick={handleSubmit(handleUpdate)} view="action" type='submit'>{selectedBid ? "Сохранить" : "Создать"}</Button>
+              <Button onClick={handleSubmit((data)=> data.id ? handleUpdate(data) : handleCreate(data))} view="action" type='submit'>{selectedBid ? "Сохранить" : "Создать"}</Button>
             </div>
         </FormProvider>
         </div>
