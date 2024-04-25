@@ -36,8 +36,8 @@ export default function BidForm() {
     { value: 'завершено', label: 'завершено' },
   ];
 
-  const getCurrentOption = ()=>
-    options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
+  const getCurrentOption = (selectedBid: Bid)=>
+    options.find((item, index)=>selectedBid.status === item.value) || { value: 'новая', label: 'новая' }
 
   const handleCreate = async (data: FieldValues) => {
     
@@ -71,7 +71,7 @@ export default function BidForm() {
         fio_carrier: selectedBid.fio_carrier,
         phone_carrier: selectedBid.phone_carrier,
         comments: selectedBid.comments,
-        status: getCurrentOption(),
+        status: getCurrentOption(selectedBid),
         ati: selectedBid.ati.toString(),
       })
     } else 
@@ -92,50 +92,38 @@ export default function BidForm() {
                 render={ ({field: {value, onChange}}) => (
                   <Select className={styles.select} options={options} value={value} onChange={onChange} />
               )}/>
-              
-              {errors.firm_name && 
-                <span style={{color: '#fff'}}>Заполните поле</span>
-              }
+
+              {errors.firm_name && <span style={{color: '#fff'}}>Заполните поле</span>}
               <Controller name='firm_name' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
                   <input className={styles.input} placeholder='Фирма клиента' value={value} onChange={onChange}/>
               )}/>
 
-              {errors.fio_carrier && 
-                <span style={{color: '#fff'}}>Заполните поле</span>
-              }
+              {errors.fio_carrier && <span style={{color: '#fff'}}>Заполните поле</span>}
               <Controller name='fio_carrier' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
                   <input className={styles.input}  placeholder='ФИО перевозчика' value={value} onChange={onChange}/>
               )}/>
 
-              {errors.phone_carrier && 
-                <span style={{color: '#fff'}}>Заполните поле</span>
-              }
+              {errors.phone_carrier && <span style={{color: '#fff'}}>Заполните поле</span>}
               <Controller name='phone_carrier' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
                   <input className={styles.input} placeholder='Телефон перевозчика' value={value} onChange={onChange}/>
               )}/>
 
-              {errors.ati && 
-                <span style={{color: '#fff'}}>Заполните поле</span>
-              }
+              {errors.ati && <span style={{color: '#fff'}}>Заполните поле</span>}
               <Controller name='ati' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
                   <input className={styles.input} placeholder='ATI' value={value} onChange={onChange} type='number'/>
               )}/>
 
-              {errors.comments && 
-                <span style={{color: '#fff'}}>Заполните поле</span>
-              }
+              {errors.comments && <span style={{color: '#fff'}}>Заполните поле</span>}
               <Controller name='comments' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
                   <textarea className={styles.input} placeholder='Комментарии' rows={3} value={value} onChange={onChange}/>
               )}/>
 
-              {errors.created_at && 
-                <span style={{color: '#fff'}}>Заполните поле</span>
-              }
+              {errors.created_at && <span style={{color: '#fff'}}>Заполните поле</span>}
               <Controller name='created_at' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
                   <div><DatePicker className={styles.datepicker} selected={value} showTimeSelect onChange={onChange} dateFormat="Pp"/></div>
