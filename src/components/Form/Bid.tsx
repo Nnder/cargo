@@ -25,7 +25,7 @@ const defaultValues = {
 
 export default function BidForm() {
   const {modal, closeModal, selectedBid} = useBidStore()
-  const {search} = useSearchStore()
+  const {search, status} = useSearchStore()
   const queryClient = useQueryClient()
   const methods = useForm({defaultValues: defaultValues});
   const { control, handleSubmit, reset } = methods
@@ -40,28 +40,24 @@ export default function BidForm() {
     options.find((item, index)=>{selectedBid?.status === item.value}) || { value: 'новая', label: 'новая' }
 
   const handleCreate = async (data: FieldValues) => {
+    
     const newBid: Bid[] = await createBid(data)
     queryClient.setQueryData(
-      ['bids', search ],
+      ['bids', search, status],
       (oldData:any) =>[...oldData, ...newBid] )
-
-    setTimeout(()=> {
-      queryClient.invalidateQueries({ queryKey: ['bids', search] })
-    }, 1500)
+    queryClient.invalidateQueries({ queryKey: ['bids', search, status] })
     closeModal()
   }
 
   const handleUpdate = async (data: FieldValues) => {
     const updatedBid: Bid[] = await updateBid(data)
     queryClient.setQueryData(
-      ['bids', search ],
+      ['bids', search, status],
       (oldData:Bid[]) =>{
-        const newData = [...oldData].filter((bid)=> bid.id !== updatedBid[0].id)
+        const newData = [...oldData].filter((bid)=> bid.id != data.id)
         return [...newData, ...updatedBid]
       })
-    setTimeout(()=> {
-      queryClient.invalidateQueries({ queryKey: ['bids', search] })
-    }, 1500)
+    queryClient.invalidateQueries({ queryKey: ['bids', search, status] })
     closeModal()
   }
   

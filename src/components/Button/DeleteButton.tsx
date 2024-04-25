@@ -9,10 +9,7 @@ import { PropsWithoutRef } from "react";
 
 export default function DeleteButton({bid, ...props}: PropsWithoutRef<{bid: Bid}>) {
     const queryClient = useQueryClient()
-    const {search} = useSearchStore()
-
-
-    
+    const {search, status} = useSearchStore()
 
     const deleteBid = async (id: number): Promise<Bid[]>=>{
         let { data, error } = await supabase
@@ -34,15 +31,19 @@ export default function DeleteButton({bid, ...props}: PropsWithoutRef<{bid: Bid}
     const mutation = useMutation({
         mutationFn: ()=> deleteBid(bid.id),
         onSuccess: () => {
-          setTimeout(()=> {
-            queryClient.invalidateQueries({ queryKey: ['bids', search] })
-          }, 1500)
+          queryClient.invalidateQueries({ queryKey: ['bids', search, status] })
         },
       })
     
 
     const clickHandler = ()=>{
-        mutation.mutate()
+      queryClient.setQueryData(
+        ['bids', search, status],
+        (oldData:Bid[]) =>{
+          const newData = [...oldData].filter((oldBid)=> oldBid.id != bid.id)
+          return [...newData]
+        })
+      mutation.mutate()
     }
 
   return (
