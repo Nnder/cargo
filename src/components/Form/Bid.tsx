@@ -28,7 +28,7 @@ export default function BidForm() {
   const {search, status} = useSearchStore()
   const queryClient = useQueryClient()
   const methods = useForm({defaultValues: defaultValues});
-  const { control, handleSubmit, reset } = methods
+  const { control, handleSubmit, reset, formState: {errors} } = methods
 
   const options = [
     { value: 'новая', label: 'новая' },
@@ -81,44 +81,62 @@ export default function BidForm() {
   return (
     <Modal open={modal} onClose={() => closeModal()}>
       <div className={styles.form}>
-        <FormProvider {...methods}>
+          <FormProvider {...methods}>
             <div style={{display: 'flex', flexDirection:'column', justifyContent: 'space-evenly', alignItems:'center', height: '450px',}}>
               <Controller name='id' control={control}
                 render={ ({field: {value, onChange}}) => (
                   <input className={styles.input}  placeholder='№ заявки' value={value} onChange={onChange} disabled={true}/>
               )}/>
 
-              <Controller name='status' control={control}
+              <Controller name='status' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
-                  <Select className={styles.select} options={options} value={value} onChange={onChange} required/>
+                  <Select className={styles.select} options={options} value={value} onChange={onChange} />
+              )}/>
+              
+              {errors.firm_name && 
+                <span style={{color: '#fff'}}>Заполните поле</span>
+              }
+              <Controller name='firm_name' control={control} rules={{required: true}}
+                render={ ({field: {value, onChange}}) => (
+                  <input className={styles.input} placeholder='Фирма клиента' value={value} onChange={onChange}/>
               )}/>
 
-              <Controller name='firm_name' control={control}
+              {errors.fio_carrier && 
+                <span style={{color: '#fff'}}>Заполните поле</span>
+              }
+              <Controller name='fio_carrier' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
-                  <input className={styles.input} placeholder='Фирма клиента' value={value} onChange={onChange} required/>
+                  <input className={styles.input}  placeholder='ФИО перевозчика' value={value} onChange={onChange}/>
               )}/>
 
-              <Controller name='fio_carrier' control={control}
+              {errors.phone_carrier && 
+                <span style={{color: '#fff'}}>Заполните поле</span>
+              }
+              <Controller name='phone_carrier' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
-                  <input className={styles.input}  placeholder='ФИО перевозчика' value={value} onChange={onChange} required/>
+                  <input className={styles.input} placeholder='Телефон перевозчика' value={value} onChange={onChange}/>
               )}/>
 
-              <Controller name='phone_carrier' control={control}
+              {errors.ati && 
+                <span style={{color: '#fff'}}>Заполните поле</span>
+              }
+              <Controller name='ati' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
-                  <input className={styles.input} placeholder='Телефон перевозчика' value={value} onChange={onChange} required/>
+                  <input className={styles.input} placeholder='ATI' value={value} onChange={onChange} type='number'/>
               )}/>
 
-              <Controller name='ati' control={control}
+              {errors.comments && 
+                <span style={{color: '#fff'}}>Заполните поле</span>
+              }
+              <Controller name='comments' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
-                  <input className={styles.input} placeholder='ATI' value={value} onChange={onChange} type='number' required/>
+                  <textarea className={styles.input} placeholder='Комментарии' rows={3} value={value} onChange={onChange}/>
               )}/>
 
-              <Controller name='comments' control={control}
-                render={ ({field: {value, onChange}}) => (
-                  <textarea className={styles.input} placeholder='Комментарии' rows={3} value={value} onChange={onChange} required/>
-              )}/>
-
-              <Controller name='created_at' control={control}
+              {errors.created_at && 
+                <span style={{color: '#fff'}}>Заполните поле</span>
+              }
+              <Controller name='created_at' control={control} rules={{required: true}}
                 render={ ({field: {value, onChange}}) => (
                   <div><DatePicker className={styles.datepicker} selected={value} showTimeSelect onChange={onChange} dateFormat="Pp"/></div>
               )}/>
@@ -127,7 +145,7 @@ export default function BidForm() {
             <div>
               <Button onClick={handleSubmit((data)=> data.id ? handleUpdate(data) : handleCreate(data))} view="action" type='submit'>{selectedBid ? "Сохранить" : "Создать"}</Button>
             </div>
-        </FormProvider>
+          </FormProvider>
         </div>
     </Modal>
   )
